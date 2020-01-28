@@ -2,10 +2,17 @@
   width: 100%;
 
   .form-input {
+    display: inline-block;
     width: 100%;
+    margin-bottom: 30px;
+  }
 
-    &:not(:last-child) {
-      margin-bottom: 30px;
+  .form-buttons {
+    text-align: right;
+    button {
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
     }
   }
 }

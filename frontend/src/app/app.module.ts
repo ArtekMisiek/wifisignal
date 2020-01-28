@@ -14,7 +14,8 @@ import {
   MatInputModule,
   MatOptionModule,
   MatSelectModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatButtonModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -36,7 +37,8 @@ import { WifiFormComponent } from './components/wifi-form/wifi-form.component';
     MatOptionModule,
     MatSelectModule,
     FlexLayoutModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule
   ],
   exports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule],
   providers: [],
