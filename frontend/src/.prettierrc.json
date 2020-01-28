@@ -1,0 +1,5 @@
+{
+  "singleQuote": true,
+  "editor.formatOnSave": true,
+  "editor.html.format.wrapAttributes": "force-aligned"
+}
