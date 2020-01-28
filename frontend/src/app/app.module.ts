@@ -10,14 +10,19 @@ import {
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,
-  MatListModule
+  MatListModule,
+  MatInputModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { HomeDashboardComponent } from './components/home-dashboard/home-dashboard.component';
+import { WifiFormComponent } from './components/wifi-form/wifi-form.component';
 
 @NgModule({
-  declarations: [AppComponent, MainMenuComponent],
+  declarations: [AppComponent, HomeDashboardComponent, WifiFormComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -27,7 +32,11 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    FlexLayoutModule
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    MatCheckboxModule
   ],
   exports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule],
   providers: [],

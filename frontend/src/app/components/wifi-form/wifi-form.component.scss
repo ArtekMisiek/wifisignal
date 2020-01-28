@@ -1,0 +1,11 @@
+.form {
+  width: 100%;
+
+  .form-input {
+    width: 100%;
+
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}
