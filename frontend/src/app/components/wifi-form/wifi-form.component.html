@@ -1,28 +1,22 @@
 <form class="form">
   <mat-form-field class="form-input">
-    <mat-select placeholder="Enctyption method">
-      <mat-option value="10px">WPA2 + AES</mat-option>
-      <mat-option value="12px">WPA + AES</mat-option>
-      <mat-option value="14px">WPA + TKIP/AES</mat-option>
-      <mat-option value="18px">WPA + TKIP</mat-option>
-      <mat-option value="20px">WEP</mat-option>
-      <mat-option value="none">Open Network (no security)</mat-option>
-      <mat-option value="unknown">I don't know</mat-option>
+    <mat-select placeholder="Enctyption method" (selectionChange)="onEncryptionChange($event)">
+      <mat-option *ngFor="let encryptionMethod of ALL_ENCTYPTION_METHODS" value="{{encryptionMethod.value}}">{{encryptionMethod.name}}</mat-option>
     </mat-select>
     <mat-hint>Choose your WiFi authentication method</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="form-input">
-    <input matInput placeholder="Network/SSID" />
+    <input matInput placeholder="Network/SSID" (input)="onNetworkChange($event)" />
     <mat-hint>Enter your WiFi name</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="form-input">
-    <input matInput placeholder="Password" type="password" />
+    <input matInput placeholder="Password" type="password" (input)="onPasswordChange($event)"/>
     <mat-hint>Enter your WiFi password</mat-hint>
   </mat-form-field>
 
-  <mat-checkbox class="form-input"
+  <mat-checkbox class="form-input" (change)="onCheckboxHiddenChange($event)"
     >Is your WiFi SSID (name) hidden?</mat-checkbox
   >
 

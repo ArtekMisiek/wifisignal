@@ -3,14 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
 import {
-  MatSidenavModule,
-  MatToolbarModule,
   MatIconModule,
-  MatListModule,
   MatInputModule,
   MatOptionModule,
   MatSelectModule,
@@ -18,29 +16,29 @@ import {
   MatButtonModule
 } from '@angular/material';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeDashboardComponent } from './components/home-dashboard/home-dashboard.component';
 import { WifiFormComponent } from './components/wifi-form/wifi-form.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrCodeComponent } from './components/qr-code/qr-code.component';
+
 @NgModule({
-  declarations: [AppComponent, HomeDashboardComponent, WifiFormComponent],
+  declarations: [AppComponent, HomeDashboardComponent, WifiFormComponent, QrCodeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatSliderModule,
     MatMenuModule,
-    MatSidenavModule,
-    MatToolbarModule,
     MatIconModule,
-    MatListModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-    FlexLayoutModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    QRCodeModule
   ],
-  exports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule],
+  exports: [MatIconModule],
   providers: [],
   bootstrap: [AppComponent]
 })
