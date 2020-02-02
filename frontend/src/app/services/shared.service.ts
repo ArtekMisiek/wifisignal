@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Data } from '../models/data';
+import { WifiData } from '../models/wifi-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-
-  private dataSource = new BehaviorSubject(new Data('', '' ,'' ,false));
-
-  data = this.dataSource.asObservable();
+  wifiData = new BehaviorSubject(new WifiData('', '', '', false));
 
   constructor() {}
 
-  dataHasChanged(data: Data) {
-    this.dataSource.next(data);
-  }
+  // dataHasChanged(data: WifiData) {
+  //   this.WifiData.next(data);
+  // }
 }

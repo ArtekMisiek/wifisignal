@@ -7,53 +7,93 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./wifi-form.component.scss']
 })
 export class WifiFormComponent implements OnInit {
-  @Output() encryptionChange = new EventEmitter<string>();
-  @Output() networkChange = new EventEmitter<string>();
-  @Output() passwordChange = new EventEmitter<string>();
-  @Output() checkboxHiddenChange = new EventEmitter<boolean>();
-
   ALL_ENCTYPTION_METHODS: Array<any> = [
-    {value: 'WPA2 + AES' , name: 'WPA2 + AES'},
-    {value: 'WPA + AES', name: 'WPA + AES'},
-    {value: 'WPA + TKIP/AES', name: 'WPA + TKIP/AES'},
-    {value: 'WPA + TKIP', name: 'WPA + TKIP'},
-    {value: 'WEP', name: 'WEP'},
-    {value: 'none', name: 'Open Network (no security)'},
-    {value: 'unknown', name: 'I don\'t know'},
-  ]
+    { value: 'WPA', name: 'WPA/WPA2' },
+    { value: 'WEP', name: 'WEP' },
+    { value: 'nopass', name: 'Open Network (no security)' }
+    // { value: 'omit', name: "I don't know" }
+  ];
 
-  sEncryptionMethod: string;
-  sNetworkName: string;
-  sPassword: string;
-  bWifiHidden: boolean = false;
+  sEncryptionMethod: string = '';
+  sNetworkName: string = '';
+  sPassword: string = '';
+  bWifiHidden = false;
 
-  constructor(private data: SharedService) { }
+  constructor(private wifiDataService: SharedService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onEncryptionChange(event) {
     this.sEncryptionMethod = event.value;
-    
-    this.dataChange()
+    this.dataChange();
   }
 
   onNetworkChange(event) {
+    // this.sNetworkName = this.escapeRegExp(event.target.value);
     this.sNetworkName = event.target.value;
-    this.networkChange.emit(this.sNetworkName);
+    this.dataChange();
   }
 
   onPasswordChange(event) {
+    // this.sPassword = this.escapeRegExp(event.target.value);
     this.sPassword = event.target.value;
-    this.passwordChange.emit(this.sPassword);
+    this.dataChange();
   }
 
   onCheckboxHiddenChange(event) {
     this.bWifiHidden = event.checked;
-    this.checkboxHiddenChange.emit(this.bWifiHidden);
+    this.dataChange();
   }
 
-  dataChange(){
-    this.data.dataHasChanged(this.sEncryptionMethod, this.sNetworkName, this.sPassword, this.bWifiHidden);
+  dataChange() {
+    this.wifiDataService.wifiData.next(
+      Object.assign(this.wifiDataService.wifiData.value, {
+        encryptionMethod: this.sEncryptionMethod,
+        ssidName: this.sNetworkName,
+        password: this.sPassword,
+        isHidden: this.bWifiHidden
+      })
+    );
+  }
+
+  escapeRegExp(text) {
+    // TODO: iOS without escaping chars (Android also works without)
+    return text.replace(/[.*+?^$\',:;"[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+  downloadQRCode() {
+    let imageName;
+    this.sNetworkName !== ''
+      ? (imageName = this.sNetworkName + '.png')
+      : (this.sNetworkName = 'default.png');
+    const canvasElement = document
+      .getElementById('wifi-qr-code')
+      .getElementsByTagName('canvas')[0];
+    const data64 = canvasElement.toDataURL();
+    const imageBlob = this.dataURItoBlob(data64);
+
+    const imageFile = new File([imageBlob], imageName, { type: 'image/png' });
+
+    const linkElement = document.createElement('a');
+    const url = URL.createObjectURL(imageFile);
+    linkElement.setAttribute('href', url);
+    linkElement.setAttribute('download', imageName);
+    const clickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: false
+    });
+    linkElement.dispatchEvent(clickEvent);
+  }
+
+  dataURItoBlob(dataURI) {
+    // const byteString = window.atob(dataURI);
+    // const arrayBuffer = new ArrayBuffer(byteString.length);
+    // const int8Array = new Uint8Array(arrayBuffer);
+    // for (let i = 0; i < byteString.length; i++) {
+    //   int8Array[i] = byteString.charCodeAt(i);
+    // }
+    const blob = new Blob([dataURI], { type: 'image/png' });
+    return blob;
   }
 }

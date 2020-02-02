@@ -1,18 +1,34 @@
 <form class="form">
   <mat-form-field class="form-input">
-    <mat-select placeholder="Enctyption method" (selectionChange)="onEncryptionChange($event)">
-      <mat-option *ngFor="let encryptionMethod of ALL_ENCTYPTION_METHODS" value="{{encryptionMethod.value}}">{{encryptionMethod.name}}</mat-option>
+    <mat-select
+      placeholder="Enctyption method"
+      (selectionChange)="onEncryptionChange($event)"
+    >
+      <mat-option
+        *ngFor="let encryptionMethod of ALL_ENCTYPTION_METHODS"
+        value="{{ encryptionMethod.value }}"
+        >{{ encryptionMethod.name }}</mat-option
+      >
     </mat-select>
     <mat-hint>Choose your WiFi authentication method</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="form-input">
-    <input matInput placeholder="Network/SSID" (input)="onNetworkChange($event)" />
+    <input
+      matInput
+      placeholder="Network/SSID"
+      (input)="onNetworkChange($event)"
+    />
     <mat-hint>Enter your WiFi name</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="form-input">
-    <input matInput placeholder="Password" type="password" (input)="onPasswordChange($event)"/>
+    <input
+      matInput
+      placeholder="Password"
+      type="password"
+      (input)="onPasswordChange($event)"
+    />
     <mat-hint>Enter your WiFi password</mat-hint>
   </mat-form-field>
 
@@ -21,11 +37,11 @@
   >
 
   <div class="form-buttons">
-    <button mat-raised-button color="primary">
+    <button mat-raised-button color="primary" (click)="downloadQRCode()">
       <mat-icon aria-hidden="false" aria-label="WiFi Signal" [inline]="true"
         >cloud_download</mat-icon
       >
-      Download
+      Download PDF
     </button>
     <button mat-raised-button color="primary">
       <mat-icon aria-hidden="false" aria-label="WiFi Signal" [inline]="true"

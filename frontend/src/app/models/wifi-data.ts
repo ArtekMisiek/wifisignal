@@ -1,4 +1,4 @@
-export class Data {
+export class WifiData {
   encryptionMethod: string;
   ssidName: string;
   password: string;
